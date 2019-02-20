@@ -1,0 +1,45 @@
+<section class="navigation">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">NEWS SCRAPER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Saved Articles</a>
+                <button class="btn btn-primary scrape-articles">Scrape new articles!</button>
+                <button class="btn btn-warning clear-articles">Clear articles!</button>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<section class="main-banner-section">
+    <div class="jumbotron banner d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-2">NEWS SCRAPER!!</h1>
+        <h3>DAILY MAIL UK News Edition</h3>
+    </div>
+</section>
+
+<section class="article-section">
+    <div class="container">
+        {{#each article}}
+            <div class="row">
+                <div class="col-8">
+                    <a href={{link}}>
+                        <h3>{{title}}</h3>
+                        <p>{{summary}}
+                        </p>
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+        </div>
+    </div>
+</section>
