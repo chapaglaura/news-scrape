@@ -1,3 +1,19 @@
+h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Crete Round', serif;
+}
+
+p, span, button {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 .banner {
-    height: 100vh;
+    height: 80vh;
+    background-color: white;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.article-container .row {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    margin: 1rem;
 }

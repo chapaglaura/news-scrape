@@ -1,8 +1,85 @@
+$(document).ready(() => {
+
+  $('.scrape-articles').click(scrapeArticles);
+
+  $('.clear-articles').click(emptyArticles);
+
+  $('.article-info').click(loadComments($(this).attr('data-id')));
+
+});
 
 
+
+function emptyArticles() {
+  console.log('deleting');
+
+  $('.article-container').empty();
+  $.ajax({
+    method: 'DELETE',
+    url: '/clear'
+  }).then(function () {
+  });
+}
+
+function scrapeArticles() {
+  console.log('scraping');
+  $.get('/scrape').then((data) => {
+    console.log(data);
+    $('.article-container').empty();
+    getArticles();
+  });
+}
+
+function getArticles() {
+  console.log('getting')
+  $.get('/articles').then(data => {
+    data.forEach((el, i) => {
+      showArticles(el);
+    });
+  });
+}
+
+function showArticles(data) {
+
+  console.log('showing');
+
+  const { title, link, summary, _id } = data;
+
+  const row = $('<div class="row">');
+  col10 = $('<div class="col-10">');
+  col2 = $('<div class="col-2">');
+  a = $('<a class="article-link">');
+  div = $('<div class="article-info" data-toggle="modal" data-target="#commentModal">');
+  h3 = $('<h3 class="article-headline">');
+  p = $('<p class="article-summary">');
+  button = $('<button class="btn btn-secondary article-button">');
+
+  h3.text(title);
+  p.text(summary);
+  button.text('SAVE ARTICLE').attr('data-id', _id);
+  div.attr('data-id', _id).append(h3, p);
+  a.attr('href', link).text('Go to article');
+  col10.append(div, a);
+  col2.append(button);
+  row.append(col10, col2);
+
+  $('.article-container').append(row);
+}
+
+function loadComments(id) {
+  console.log('clicking for comments');
+
+  $.get('/comments' + id)
+  .then(function (data) {
+
+  });
+}
+
+
+/*
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", "p", function () {
   // Empty the comments from the note section
   $("#comments").empty();
   // Save the id from the p tag
@@ -14,7 +91,7 @@ $(document).on("click", "p", function() {
     url: "/articles/" + thisId
   })
     // With that done, add the note information to the page
-    .then(function(data) {
+    .then(function (data) {
       console.log(data);
       // The title of the article
       $("#comments").append("<h2>" + data.title + "</h2>");
@@ -36,7 +113,7 @@ $(document).on("click", "p", function() {
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savenote", function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
@@ -52,7 +129,7 @@ $(document).on("click", "#savenote", function() {
     }
   })
     // With that done
-    .then(function(data) {
+    .then(function (data) {
       // Log the response
       console.log(data);
       // Empty the comments section
@@ -63,3 +140,4 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+*/

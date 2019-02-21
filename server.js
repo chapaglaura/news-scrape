@@ -27,7 +27,8 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.get('/scrape', function (req, res) {
-  axios.get('https://www.dailymail.co.uk/news/index.html').then(function (response) {
+  axios.get('https://www.dailymail.co.uk/news/index.html')
+  .then(function (response) {
     var $ = cheerio.load(response.data);
 
     $('.article').each(function (i, el) {
@@ -35,23 +36,28 @@ app.get('/scrape', function (req, res) {
       
       result.title = $(this).find('h2 a').text();
       result.summary = $(this).find('.articletext p').text();
-      result.link = $(this).find('h2 a').attr('href');
+      result.link = 'https://www.dailymail.co.uk/' + $(this).find('h2 a').attr('href');
 
       result.summary = result.summary.replace('\n', '').trim();
       
       result.summary = result.summary.replace('\\', '').trim();
 
-      db.Article.create(result).then(function (dbArticle) {
-      }).catch(function (err) {
-        console.log(err);
-      });
+      if (i < 10) {
+        db.Article.create(result).then(function (dbArticle) {
+          console.log('successfully scraped');
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
     });
+    console.log('Holis');
+    res.send('Scrape complete');
 
   });
 });
 
 app.get('/', function(req, res) {
-  console.log('hey!!');
+  console.log('homepage loading!!');
   db.Article.find({}).then(function (dbArticle) {
     var obj = {
       article: dbArticle
@@ -60,8 +66,29 @@ app.get('/', function(req, res) {
   }).catch(function (err) {
     console.log(err);
   });
-
 });
+
+app.get('/articles', function(req, res) {
+  db.Article.find({}).then(function (dbArticle) {
+    console.log('finding articles from scraping');
+    res.json(dbArticle);
+  }).catch(function (err) {
+    console.log(err);
+  });
+});
+
+app.delete('/clear', function(req, res) {
+  console.log('about to delete');
+  db.Article.deleteMany({}).then(function(deleted) {
+    console.log(deleted)
+  }).catch(err => {
+    console.log(err);
+  });
+})
+
+app.get('/comments/:id', function(req, res) {
+  
+})
 
 /*
 // Route for grabbing a specific Article by id, populate it with its note
