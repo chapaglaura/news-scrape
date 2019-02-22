@@ -9,8 +9,6 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="/saved">Saved Articles</a>
-                <button class="btn btn-warning scrape-articles">Scrape new articles!</button>
-                <button class="btn btn-secondary clear-articles">Clear articles!</button>
             </div>
         </div>
     </nav>
@@ -18,8 +16,7 @@
 
 <section class="main-banner-section">
     <div class="jumbotron banner d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-2">NEWS SCRAPER!</h1>
-        <h3>DAILY MAIL UK News Edition</h3>
+        <h1 class="display-2">SAVED ARTICLES</h1>
     </div>
 </section>
 
@@ -35,9 +32,37 @@
                 <a class="article-link" href={{link}}>Go to article</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-1">
-                <button class="btn btn-secondary save-article" data-id={{_id}}>SAVE ARTICLE</button>
+                <button class="btn btn-warning article-comments" data-toggle="modal" data-target="#commentModal"
+                    data-id={{_id}}>ARTICLE COMMENTS</button>
+                <button class="btn btn-secondary delete-saved" data-id={{_id}}>DELETE SAVED ARTICLE</button>
             </div>
         </div>
         {{/each}}
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Comments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container comment-container">
+                </div>
+                <form class="modal-form">
+                    <div class="form-group">
+                        <label for="commentBody">New comment:</label>
+                        <textarea class="form-control" id="commentBody" name="body"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

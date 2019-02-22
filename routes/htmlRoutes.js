@@ -1,11 +1,27 @@
-var path = require('path');
 
-module.exports = function(app) {
+module.exports = function (app, db) {
 
-    app.get('/', function(req, res) {
-        app.get('/articles', function(requ, resp) {
-            console.log(resp);
-            res.render('index', resp);
-        })
+    app.get('/', (req, res) => {
+        db.Article.find({ saved: false })
+            .then(dbArticle => {
+                const obj = {
+                    article: dbArticle
+                }
+                res.render('index', obj);
+            }).catch(err => {
+                console.log(err);
+            });
+    });
+
+    app.get('/saved', (req, res) => {
+        db.Article.find({ saved: true })
+            .then(function (dbArticle) {
+                const obj = {
+                    article: dbArticle
+                }
+                res.render('saved', obj);
+            }).catch(err => {
+                console.log(err)
+            });
     });
 }
