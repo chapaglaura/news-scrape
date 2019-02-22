@@ -11,6 +11,7 @@ $(document).ready(() => {
 });
 
 const article = {
+  
   scrape() {
     $.get('/scrape').then((data) => {
       $('.article-container').empty();
