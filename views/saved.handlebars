@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="/saved">Saved Articles</a>
+                <a class="nav-item nav-link saved-link" href="/saved">Saved Articles</a>
             </div>
         </div>
     </nav>
@@ -24,14 +24,14 @@
     <div class="container article-container">
         {{#each article}}
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-11">
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
                 <div class="article-info">
                     <h3 class="article-headline">{{title}}</h3>
                     <p class="article-summary">{{summary}}</p>
                 </div>
                 <a class="article-link" href={{link}}>Go to article</a>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-1">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <button class="btn btn-warning article-comments" data-toggle="modal" data-target="#commentModal"
                     data-id={{_id}}>ARTICLE COMMENTS</button>
                 <button class="btn btn-secondary delete-saved" data-id={{_id}}>DELETE SAVED ARTICLE</button>

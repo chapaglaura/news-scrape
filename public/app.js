@@ -1,5 +1,10 @@
 $(document).ready(() => {
 
+  if(window.location.href.includes('/saved')){
+    $('.active').removeClass('active');
+    $('.saved-link').addClass('active');
+  }
+
   $('.scrape-articles').click(article.scrape);
   $('.clear-articles').click(article.clear);
   $('.article-container').on('click', '.save-article', article.save);
@@ -32,8 +37,8 @@ const article = {
     const { title, link, summary, _id } = data;
 
     const row = $('<div class="row">');
-    col10 = $('<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-11">');
-    col2 = $('<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-1">');
+    col10 = $('<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">');
+    col2 = $('<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">');
     a = $('<a class="article-link">');
     div = $('<div class="article-info" data-toggle="modal" data-target="#commentModal">');
     h3 = $('<h3 class="article-headline">');
@@ -126,11 +131,11 @@ const comment = {
   display(commentBody, commentId) {
 
     const row = $('<div class="row">');
-    col10 = $('<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-11">');
-    col2 = $('<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-1">');
+    col10 = $('<div class="col-xs-10 col-sm-10 col-md-9 col-lg-9 col-xl-9">');
+    col2 = $('<div class="col-xs-2 col-sm-2 col-md-3 col-lg-3 col-xl-3">');
     i = $('<i class="fas fa-times"></i>');
     p = $('<p class="article-summary">');
-    button = $('<button class="btn btn-warning delete-comment" data-comment-id="' + commentId + '">');
+    button = $('<button class="float-right btn btn-warning delete-comment" data-comment-id="' + commentId + '">');
 
     p.append(commentBody);
     col10.append(p);
@@ -142,6 +147,8 @@ const comment = {
 
   delete() {
     const id = $(this).attr('data-comment-id');
+
+    $(this).parent('div').parent('.row').remove();
 
     $.ajax({
       method: 'DELETE',
